@@ -1,0 +1,45 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+.wrapper {
+  margin: 50px;
+}
+
+/* Grid {
+  box-shadow: 0 5px 10px 0 rgba(0,0,0,0.2);
+} */
+
+.container {
+  box-shadow: 0 5px 10px 0 rgba(0,0,0,0.2);
+  /* background: red; */
+}
+
+.headers {
+  background: #065c6e;
+  color: #fff;
+}
+
+.show-grid:nth-child(odd) {
+  background: rgb(0,0,0,0.1);
+}
