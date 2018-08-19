@@ -10,7 +10,6 @@ const initState = {
         city: '',
         address: {},
         phone: '',
-        website: '',
         company: ''
     },
     orderBy:  {
@@ -29,7 +28,6 @@ export const CURRENT_USERNAME = 'CURRENT_USERNAME'
 export const CURRENT_EMAIL = 'CURRENT_EMAIL'
 export const CURRENT_CITY = 'CURRENT_CITY'
 export const CURRENT_PHONE = 'CURRENT_PHONE'
-export const CURRENT_WEBSITE = 'CURRENT_WEBSITE'
 export const CURRENT_COMPANY = 'CURRENT_COMPANY'
 
 export const updateCurrentName = (val) => ({type:CURRENT_NAME, payload: val})
@@ -37,7 +35,6 @@ export const updateCurrentUserName = (val) => ({type:CURRENT_USERNAME, payload: 
 export const updateCurrentEmail = (val) => ({type:CURRENT_EMAIL, payload: val})
 export const updateCurrentCity = (val) => ({type:CURRENT_CITY, payload: val})
 export const updateCurrentPhone = (val) => ({type:CURRENT_PHONE, payload: val})
-export const updateCurrentWebsite = (val) => ({type:CURRENT_WEBSITE, payload: val})
 export const updateCurrentCo = (val) => ({type:CURRENT_COMPANY, payload: val})
 
 export const loadUsers = (users) => ({type: USERS_LOAD, payload: users})
@@ -103,8 +100,6 @@ export default (state = initState, action) => {
         return {...state, currentUser: {...state.currentUser, address: {...state.currentUser.address, city: action.payload}}}
     case CURRENT_PHONE:
         return {...state, currentUser: {...state.currentUser, phone: action.payload}}
-    case CURRENT_WEBSITE:
-        return {...state, currentUser: {...state.currentUser, website: action.payload}}
     case CURRENT_COMPANY:
         return {...state, currentUser: {...state.currentUser, company: {...state.currentUser.company, name: action.payload}}}
     case DO_SORT:

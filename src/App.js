@@ -6,6 +6,9 @@ import {Provider, connect} from 'react-redux'
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 import LoginForm from './components/loginForm';
 import MainPage from './components/mainPage';
+import Menubar from './components/common/Menubar';
+import login from './reducer/login';
+import loginForm from './components/loginForm';
 
 const PrivateRoute = ({ user: loggedInUser, component: Component, ...rest }) => (
   <Route {...rest} render={(props) => (
@@ -24,9 +27,10 @@ class App extends Component {
     return (
         <Provider store={store}>
             <Router>
-                <div className="App">
-                  <Route exact path="/" component={MainPage} />
-                  <Route path="/login" component={LoginForm} />
+                <div className="App container">
+                  <Menubar />
+                  <Route exact path="/" component={loginForm} />
+                  <Route exact path="/login" component={LoginForm} />
                   <PrivateRoute path="/createUser" user={loggedInUser} component={UserForm} />
                   <PrivateRoute path="/users" user={loggedInUser} component={UsersList} />
                 </div>

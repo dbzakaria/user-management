@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {signIn, updateUsername} from '../reducer/login'
 import { withRouter } from 'react-router-dom'
+import './loginForm.css'
 
 class LoginForm extends Component {
 
@@ -13,15 +14,21 @@ class LoginForm extends Component {
     
       handleSubmit = (evt) => {
         evt.preventDefault();
-        this.props.signIn(this.props.user.username);
-        this.props.history.push('/users');
+        if (this.props.user.username === '') {
+            alert('You should provide username.');
+        } else {
+            this.props.signIn(this.props.user.username);
+            this.props.history.push('/users');
+        }
       }
 
     render() {
         const user = this.props.user;
         console.log(user)
         return (
-            <div>
+            <div className="login-form">
+                <h4><i className="fas fa-user"></i>User Login</h4>
+                <hr/>
                 <form>
                     <div className="form-group">
                         <label >Username</label>

@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchUsers, sortCol, deleteUser} from '../reducer/user'
-import { Container, Grid, Row, Col, code, Button, FormGroup,FormControl, ControlLabel } from 'react-bootstrap'
 import { withRouter } from 'react-router-dom'
+import './usersList.css'
 
 const TableHeaderCell = ({colName, className, handleSort, sortClassName}) => (
   <div className={className} onClick={handleSort}>
@@ -11,14 +11,12 @@ const TableHeaderCell = ({colName, className, handleSort, sortClassName}) => (
 )
 
 const tableHeaders = [
-  {key: 'id', value: 'Id', class: 'col-sm-1 col-md-1'},
-  {key: 'name', value: 'Name', class: 'col-sm-2 col-md-2'},
-  {key: 'username', value: 'Username', class: 'col-sm-2 col-md-2'},
-  {key: 'email', value: 'Email', class: 'col-sm-2 col-md-2'},
-  {key: 'address.city', value: 'City', class: 'col-sm-1 col-md-1'},
-  {key: 'phone', value: 'Phone', class: 'col-sm-2 col-md-2'},
-  {key: 'website', value: 'Website', class: 'col-sm-1 col-md-1'},
-  {key: 'company.name', value: 'Company Name', class: 'col-sm-1 col-md-1'},
+  {key: 'name', value: 'Name', class: 'table-head'},
+  {key: 'username', value: 'Username', class: 'table-head'},
+  {key: 'email', value: 'Email', class: 'table-head'},
+  {key: 'address.city', value: 'City', class: 'table-head'},
+  {key: 'phone', value: 'Phone', class: 'table-head'},
+  {key: 'company.name', value: 'Company Name', class: 'table-head'},
 ];
 
 class UsersList extends Component {
@@ -49,12 +47,16 @@ class UsersList extends Component {
     const sort = this.props.sort;
     console.log(this.props.user);
     return (
-      <div className="wrapper">
-        {/* <a href="/login"> <i className="fas fa-user"></i> Log in</a> */}
-        <a href="/createUser">Create User</a>
-        <div className="users-info">
-          <Grid>
-            <Row className="headers">
+
+      <div className="users-info">
+        <h2><i className="fas fa-users"></i>Users</h2>
+        <hr/>
+        <div className="action-btns">
+          <a className="btn btn-primary create-user-btn" href="/createUser"><i className="fas fa-user-plus"></i>Add New User</a>
+        </div>
+        <div className="table-grid users-table">
+          <div className="table-heading">
+            <div className="table-row">
               {
                 tableHeaders.map((header, key) => 
                   <TableHeaderCell key={key}
@@ -65,20 +67,25 @@ class UsersList extends Component {
                   />
                 )
               }
-            </Row>
+              <div className="table-head text-center">Action</div>
+            </div>
+          </div>
+          <div className="table-body">
             {users.map((user, key) => {
-              return <Row  className="show-grid" key={key}>
-                <Col sm={1} md={1}><i onClick={(e) => this.handleDelete(e, user.id)} className="fas fa-trash-alt"></i>{user.id} </Col>
-                <Col sm={2} md={2}> {user.name} </Col>
-                <Col sm={2} md={2}> {user.username} </Col>
-                <Col sm={2} md={2}> {user.email} </Col>
-                <Col sm={1} md={1}> {user.address.city} </Col>
-                <Col sm={2} md={2}> {user.phone} </Col>
-                <Col sm={1} md={1}> {user.website} </Col>
-                <Col sm={1} md={1}> {user.company.name} </Col>
-              </Row>
+              return <div className="table-row" key={key}>
+                <div className="table-cell">{user.name}</div>
+                <div className="table-cell">{user.username}</div>
+                <div className="table-cell">{user.email}</div>
+                <div className="table-cell">{user.address.city}</div>
+                <div className="table-cell">{user.phone}</div>
+                <div className="table-cell">{user.company.name}</div>
+                <div className="table-cell text-center">
+                  <button onClick={(e) => this.handleDelete(e, user.id)} className="btn btn-default far fa-trash-alt"></button>
+                  <a href={'/editUser/' + user.id} className="btn btn-default fas fa-edit" role="button"></a>
+                </div>
+              </div>
             })}
-          </Grid>
+          </div>
         </div>
       </div>
     )

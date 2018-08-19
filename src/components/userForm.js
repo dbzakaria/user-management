@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {saveUser} from '../reducer/user'
-import { Button } from 'react-bootstrap'
-import {updateCurrentName, updateCurrentUserName, updateCurrentEmail, updateCurrentCity, updateCurrentPhone, updateCurrentWebsite, updateCurrentCo} from '../reducer/user'
+import {updateCurrentName, updateCurrentUserName, updateCurrentEmail, updateCurrentCity, updateCurrentPhone, updateCurrentCo} from '../reducer/user'
 import { withRouter } from 'react-router-dom'
+import './userForm.css'
 
 class UserForm extends Component {
 
@@ -37,12 +37,6 @@ class UserForm extends Component {
     this.props.updateCurrentPhone(val)
   }
 
-  handleInputChangeWebsite = (evt) => {
-    evt.preventDefault()
-    const val = evt.target.value
-    this.props.updateCurrentWebsite(val)
-  }
-
   handleInputChangeCo = (evt) => {
     evt.preventDefault()
     const val = evt.target.value
@@ -52,7 +46,7 @@ class UserForm extends Component {
   handleSubmit = (evt) => {
     evt.preventDefault();
     this.props.saveUser(this.props.currentUser);
-    // this.props.history.push('/');
+    this.props.history.push('/users');
   }
 
   render() {
@@ -60,7 +54,8 @@ class UserForm extends Component {
 
     return (
       <div className="wrapper">
-
+        <h2><i className="fas fa-users"></i>User Form</h2>
+        <hr/>
           <form>
             <div className="form-group row">
               <label  className="col-sm-2 col-form-label">Name</label>
@@ -93,18 +88,15 @@ class UserForm extends Component {
               </div>
             </div>
             <div className="form-group row">
-              <label  className="col-sm-2 col-form-label">Website:</label>
-              <div className="col-sm-10">
-                <input className="form-control"  placeholder="Website" onChange={this.handleInputChangeWebsite}/>
-              </div>
-            </div>
-            <div className="form-group row">
               <label  className="col-sm-2 col-form-label">Company name:</label>
               <div className="col-sm-10">
                 <input className="form-control"  placeholder="Company name" onChange={this.handleInputChangeCo}/>
               </div>
             </div>
-            <Button bsStyle="primary" bsSize="small" onClick={this.handleSubmit}>Save user</Button>
+            <div className="actions">
+              <a className="btn btn-primary" onClick={this.handleSubmit}>Save user</a>
+              <a className="btn btn-primary" href="/users" role="button">Cancel</a>
+            </div>
           </form>
 
       </div>
@@ -114,5 +106,5 @@ class UserForm extends Component {
 
 export default withRouter(connect(
   (state) => ({currentUser: state.user.currentUser}),
-  {saveUser,updateCurrentName, updateCurrentUserName, updateCurrentEmail, updateCurrentCity, updateCurrentPhone, updateCurrentWebsite, updateCurrentCo}
+  {saveUser,updateCurrentName, updateCurrentUserName, updateCurrentEmail, updateCurrentCity, updateCurrentPhone, updateCurrentCo}
 )(UserForm))

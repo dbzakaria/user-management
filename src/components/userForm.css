@@ -1,0 +1,8 @@
+.actions {
+    float: right;
+    display: block;
+}
+
+.btn-primary:nth-child(2) {
+    margin-left: 15px;
+}
