@@ -4,6 +4,7 @@ import thunk from 'redux-thunk'
 import userReducer from './reducer/user'
 import loginReducer from './reducer/login'
 import {loadState, saveState} from './localStorage'
+import { throttle } from 'lodash'
 
 const reducer = combineReducers({
     user: userReducer,
@@ -21,8 +22,8 @@ const store = createStore(
     )
 )
 
-store.subscribe(() => {
+store.subscribe(throttle(() => {
     saveState(store.getState())
-})
+}, 1000));
 
 export default store;
