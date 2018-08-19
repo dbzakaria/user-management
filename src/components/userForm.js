@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {saveUser} from '../reducer/user'
 import { Button } from 'react-bootstrap'
 import {updateCurrentName, updateCurrentUserName, updateCurrentEmail, updateCurrentCity, updateCurrentPhone, updateCurrentWebsite, updateCurrentCo} from '../reducer/user'
+import { withRouter } from 'react-router-dom'
 
 class UserForm extends Component {
 
@@ -51,7 +52,7 @@ class UserForm extends Component {
   handleSubmit = (evt) => {
     evt.preventDefault();
     this.props.saveUser(this.props.currentUser);
-    this.props.history.push('/');
+    // this.props.history.push('/');
   }
 
   render() {
@@ -111,7 +112,7 @@ class UserForm extends Component {
   }
 }
 
-export default connect(
+export default withRouter(connect(
   (state) => ({currentUser: state.user.currentUser}),
   {saveUser,updateCurrentName, updateCurrentUserName, updateCurrentEmail, updateCurrentCity, updateCurrentPhone, updateCurrentWebsite, updateCurrentCo}
-)(UserForm)
+)(UserForm))

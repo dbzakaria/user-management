@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchUsers, sortCol, deleteUser} from '../reducer/user'
 import { Container, Grid, Row, Col, code, Button, FormGroup,FormControl, ControlLabel } from 'react-bootstrap'
+import { withRouter } from 'react-router-dom'
 
 const TableHeaderCell = ({colName, className, handleSort, sortClassName}) => (
   <div className={className} onClick={handleSort}>
@@ -46,9 +47,10 @@ class UsersList extends Component {
   render() {
     const users = this.props.users;
     const sort = this.props.sort;
+    console.log(this.props.user);
     return (
       <div className="wrapper">
-        <Button bsStyle="primary"> <i className="fas fa-user"></i> Log in</Button>
+        {/* <a href="/login"> <i className="fas fa-user"></i> Log in</a> */}
         <a href="/createUser">Create User</a>
         <div className="users-info">
           <Grid>
@@ -83,7 +85,7 @@ class UsersList extends Component {
   }
 }
 
-export default connect(
-  (state) => ({users: state.user.users, sort: state.user.orderBy}),
+export default withRouter(connect(
+  (state) => ({users: state.user.users, sort: state.user.orderBy, user:state.authenticatedUser.user}),
   {fetchUsers, sortCol, deleteUser}
-)(UsersList)
+)(UsersList))
