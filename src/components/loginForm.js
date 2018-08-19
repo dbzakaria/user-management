@@ -14,17 +14,17 @@ class LoginForm extends Component {
     
       handleSubmit = (evt) => {
         evt.preventDefault();
-        if (this.props.user.username === '') {
-            alert('You should provide username.');
-        } else {
-            this.props.signIn(this.props.user.username);
-            this.props.history.push('/users');
-        }
+        this.props.signIn(this.props.user.username);
+        this.props.history.push('/users');
+      }
+
+      canSubmit() {
+        return !(this.props.user.username.length > 0);
       }
 
     render() {
+        const isEnabled = this.canSubmit()
         const user = this.props.user;
-        console.log(user)
         return (
             <div className="login-form">
                 <h4><i className="fas fa-user"></i>User Login</h4>
@@ -38,7 +38,7 @@ class LoginForm extends Component {
                         <label >Password</label>
                         <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password"/>
                     </div>
-                    <button type="submit" className="btn btn-primary" onClick={this.handleSubmit}>Submit</button>
+                    <button type="submit" className="btn btn-primary" onClick={this.handleSubmit} disabled={isEnabled}>Submit</button>
                 </form>
             </div>
         )

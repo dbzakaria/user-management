@@ -45,7 +45,6 @@ class UsersList extends Component {
   render() {
     const users = this.props.users;
     const sort = this.props.sort;
-    console.log(this.props.user);
     return (
 
       <div className="users-info">

@@ -22,7 +22,6 @@ const LoggedInMenu = ({loggedInUser: loggedInUser, handleSignout: handleSignout}
         </ul>
     </div>
 )
-
 class Menubar extends Component {
 
     handleSignuout = (e) => {
