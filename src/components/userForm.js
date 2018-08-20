@@ -49,8 +49,45 @@ class UserForm extends Component {
     this.props.history.push('/users');
   }
 
-  render() {
+  isValidName = () => {
+    return this.props.currentUser.name.length > 0 ? true : false;
+  }
 
+  isValidUserName = () => {
+    return this.props.currentUser.username.length > 0 ? true : false;
+  }
+
+  isValidEmail = () => {
+    if (this.props.currentUser.email !== '' && /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(this.props.currentUser.email)) {
+      return true;
+    }
+
+    return false;
+  }
+
+  isValidAddressCity = () => {
+    return this.props.currentUser.address.city.length > 0 ? true : false;
+  }
+
+  isValidPhone = () => {
+    return this.props.currentUser.phone.length > 0 ? true : false;
+  }
+
+  isValidCompanyName = () => {
+    return this.props.currentUser.company.name.length > 0 ? true : false;
+  }
+
+  canSubmit() {
+    console.log(this.props.currentUser);
+    if (this.isValidName() && this.isValidUserName() && this.isValidEmail() && this.isValidAddressCity() && this.isValidPhone() && this.isValidCompanyName()) {
+      return false
+    }
+
+    return true;
+  }
+
+  render() {
+    const isEnabled = this.canSubmit();
 
     return (
       <div className="wrapper">
@@ -60,19 +97,20 @@ class UserForm extends Component {
             <div className="form-group row">
               <label  className="col-sm-2 col-form-label">Name:</label>
               <div className="col-sm-10">
-                <input className="form-control"  placeholder="Name" onChange={this.handleInputChangeName}/>
+                <input className="form-control" placeholder="Name" onChange={this.handleInputChangeName}/>
               </div>
             </div>
             <div className="form-group row">
               <label  className="col-sm-2 col-form-label">User name:</label>
               <div className="col-sm-10">
-                <input  className="form-control"  placeholder="User Name" onChange={this.handleInputChangeUserName}/>
+                <input  className="form-control" placeholder="User Name" onChange={this.handleInputChangeUserName}/>
               </div>
             </div>
             <div className="form-group row">
               <label  className="col-sm-2 col-form-label">Email:</label>
               <div className="col-sm-10">
                 <input className="form-control" type="email" placeholder="name@example.com" onChange={this.handleInputChangeEmail}/>
+                <span id="helpBlock2" className={this.isValidEmail() ? 'hide' : 'show help-block'}>Email is here.</span>
               </div>
             </div>
             <div className="form-group row">
@@ -94,7 +132,7 @@ class UserForm extends Component {
               </div>
             </div>
             <div className="actions">
-              <a className="btn btn-primary" onClick={this.handleSubmit}>Save user</a>
+              <button className="btn btn-primary" onClick={this.handleSubmit} disabled={isEnabled}>Save user </button>
               <a className="btn btn-primary" href="/users" role="button">Cancel</a>
             </div>
           </form>

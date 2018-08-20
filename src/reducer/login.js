@@ -7,9 +7,9 @@ const initState = {
 
 export const USER_SIGNIN = 'USER_SIGNIN'
 export const USER_SIGNOUT = 'USER_SIGNOUT'
-export const CURRENT_USERNAME = 'CURRENT_USERNAME'
+export const UPDATE_AUTH_USERNAME = 'UPDATE_AUTH_USERNAME'
 
-export const updateUsername = (val) => ({type:CURRENT_USERNAME, payload: val})
+export const updateUsername = (val) => ({type:UPDATE_AUTH_USERNAME, payload: val})
 export const signIn = (username) => ({type: USER_SIGNIN, payload: username})
 export const signOut = () => ({type: USER_SIGNOUT})
 
@@ -19,7 +19,7 @@ export default (state = initState, action) => {
             return {...state, user: {...state.user, username: action.payload, isAuth: true}}
         case USER_SIGNOUT:
             return {...state, user: {...state.user, username: '', isAuth: false}}
-        case CURRENT_USERNAME:
+        case UPDATE_AUTH_USERNAME:
             return {...state, user: {...state.user, username: action.payload}}
         default:
             return state

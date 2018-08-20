@@ -23,8 +23,8 @@ class LoginForm extends Component {
       }
 
     render() {
-        const isEnabled = this.canSubmit()
-        const user = this.props.user;
+        const isEnabled = this.canSubmit();
+        // const user = this.props.user;
         return (
             <div className="login-form">
                 <h4><i className="fas fa-user"></i>User Login</h4>

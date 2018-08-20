@@ -7,10 +7,13 @@ const initState = {
         name: '',
         username: '',
         email: '',
-        city: '',
-        address: {},
+        address: {
+            city: ''
+        },
         phone: '',
-        company: ''
+        company: {
+            name: ''
+        }
     },
     orderBy:  {
         type: 'asc',
@@ -87,7 +90,7 @@ export const deleteUser = (id) => {
 export default (state = initState, action) => {
     switch (action.type) {
     case USERS_ADD:
-        return {...state, users: state.users.concat(action.payload)}
+        return {...state, users: state.users.concat(action.payload), currentUser: {id:0, name:'', username:'', address: {city:''}, email:'', phone: '', company: {name:''}}}
     case USERS_LOAD:
         return {...state, users: action.payload}
     case CURRENT_NAME:

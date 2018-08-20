@@ -33,6 +33,7 @@
 .table-row {
     display: block;
     width: 100%;
+    padding: 7px 0;
 }
 
 .table-cell, .table-head {
