@@ -1,4 +1,4 @@
-import {getUsers, sortUsers, createUser, deleteUserById} from '../lib/userServices'
+import {getUsers, sortUsers, createUser, deleteUserById, updateUser, getUserById} from '../lib/userServices'
 
 const initState = {
     users: [],
@@ -25,6 +25,8 @@ export const USERS_ADD = 'USERS_ADD'
 export const USERS_LOAD = 'USERS_LOAD'
 export const DO_SORT = 'DO_SORT'
 export const USER_DELETE = 'USER_DELETE'
+export const USER_UPADTE = 'USER_UPADTE'
+export const GET_USER = 'GET_USER'
 
 export const CURRENT_NAME = 'CURRENT_NAME'
 export const CURRENT_USERNAME = 'CURRENT_USERNAME'
@@ -32,6 +34,7 @@ export const CURRENT_EMAIL = 'CURRENT_EMAIL'
 export const CURRENT_CITY = 'CURRENT_CITY'
 export const CURRENT_PHONE = 'CURRENT_PHONE'
 export const CURRENT_COMPANY = 'CURRENT_COMPANY'
+export const EMPTY_CURRENT_USER = 'EMPTY_CURRENT_USER'
 
 export const updateCurrentName = (val) => ({type:CURRENT_NAME, payload: val})
 export const updateCurrentUserName = (val) => ({type:CURRENT_USERNAME, payload: val})
@@ -39,9 +42,12 @@ export const updateCurrentEmail = (val) => ({type:CURRENT_EMAIL, payload: val})
 export const updateCurrentCity = (val) => ({type:CURRENT_CITY, payload: val})
 export const updateCurrentPhone = (val) => ({type:CURRENT_PHONE, payload: val})
 export const updateCurrentCo = (val) => ({type:CURRENT_COMPANY, payload: val})
+export const emptyCurrentUser = () => ({type: EMPTY_CURRENT_USER})
 
 export const loadUsers = (users) => ({type: USERS_LOAD, payload: users})
 export const addUser = (user) => ({type: USERS_ADD, payload: user})
+export const replaceCurrentUser = (user) => ({type: USER_UPADTE, payload: user})
+export const getUser = (user) => ({type: GET_USER, payload: user})
 export const doSorting = (users, orderBy) => ({type: DO_SORT, payload: users, orderBy: orderBy})
 export const deleteFromUsers = (id) => ({type: USER_DELETE, payload: id})
 
@@ -87,6 +93,21 @@ export const deleteUser = (id) => {
     }
 }
 
+export const updateUserById = (user) => {
+    return (dispatch) => {
+        updateUser(user)
+            .then(res => dispatch(replaceCurrentUser(res)))
+    }
+}
+
+export const fetchUserById = (id) => {
+    return (dispatch) => {
+        getUserById(id)
+            .then(res => dispatch(getUser(res)))
+    }
+}
+
+
 export default (state = initState, action) => {
     switch (action.type) {
     case USERS_ADD:
@@ -112,6 +133,15 @@ export default (state = initState, action) => {
       return {...state,
         users: state.users.filter(u => u.id !== action.payload)
       }
+    case USER_UPADTE:
+      return {...state,
+        users: state.users.map(u => u.id === action.payload.id ? action.payload : u),
+        currentUser: {id:0, name:'', username:'', address: {city:''}, email:'', phone: '', company: {name:''}}
+      }
+    case GET_USER:
+      return {...state, currentUser: action.payload}
+    case EMPTY_CURRENT_USER:
+      return {...state, currentUser: {id:0, name:'', username: '', email:'',address: {city:''}, phone:'', company:{name:''}}}
     default:
         return state
     }

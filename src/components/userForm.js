@@ -1,11 +1,31 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {saveUser} from '../reducer/user'
-import {updateCurrentName, updateCurrentUserName, updateCurrentEmail, updateCurrentCity, updateCurrentPhone, updateCurrentCo} from '../reducer/user'
+import {
+  saveUser,
+  updateCurrentName,
+  updateCurrentUserName,
+  updateCurrentEmail,
+  updateCurrentCity,
+  updateCurrentPhone,
+  updateCurrentCo,
+  updateUserById,
+  fetchUserById,
+  emptyCurrentUser
+} from '../reducer/user'
 import { withRouter } from 'react-router-dom'
 import './userForm.css'
 
 class UserForm extends Component {
+
+  componentDidMount() {
+    if (this.isEditing()) {
+      this.props.fetchUserById(this.props.match.params.id);
+    }
+  }
+
+  isEditing = () => {
+    return (this.props.match.params.id === undefined)? false : true;
+  }
 
   handleInputChangeName = (evt) => {
     evt.preventDefault()
@@ -45,7 +65,17 @@ class UserForm extends Component {
 
   handleSubmit = (evt) => {
     evt.preventDefault();
-    this.props.saveUser(this.props.currentUser);
+    if (this.isEditing()) {
+      this.props.updateUserById(this.props.currentUser)
+    } else {
+      this.props.saveUser(this.props.currentUser);
+    }
+    this.props.history.push('/users');
+  }
+
+  handleCancel = (evt) => {
+    evt.preventDefault();
+    this.props.emptyCurrentUser();
     this.props.history.push('/users');
   }
 
@@ -81,7 +111,6 @@ class UserForm extends Component {
   }
 
   canSubmit() {
-    console.log(this.props.currentUser);
     if (this.isValidName() && this.isValidUserName() && this.isValidEmail() && this.isValidAddressCity() && this.isValidPhone() && this.isValidCompanyName()) {
       return false
     }
@@ -91,6 +120,7 @@ class UserForm extends Component {
 
   render() {
     const isEnabled = this.canSubmit();
+    console.log(this.props.currentUser)
 
     return (
       <div className="wrapper">
@@ -100,45 +130,45 @@ class UserForm extends Component {
             <div className="form-group row">
               <label  className="col-sm-2 col-form-label">Name:</label>
               <div className="col-sm-10">
-                <input className="form-control" placeholder="Name" onChange={this.handleInputChangeName}/>
+                <input className="form-control" placeholder="Name" value={this.props.currentUser.name} onChange={this.handleInputChangeName}/>
               </div>
             </div>
             <div className="form-group row">
               <label  className="col-sm-2 col-form-label">User name:</label>
               <div className="col-sm-10">
-                <input  className="form-control" placeholder="User Name" onChange={this.handleInputChangeUserName}/>
+                <input  className="form-control" placeholder="User Name" value={this.props.currentUser.username} onChange={this.handleInputChangeUserName}/>
                 <span id="helpBlock2" className={this.isValidUserName() ? 'hide' : 'show help-block'}>User name shouldn't have any special characters and of minimum 8</span>
               </div>
             </div>
             <div className="form-group row">
               <label  className="col-sm-2 col-form-label">Email:</label>
               <div className="col-sm-10">
-                <input className="form-control" type="email" placeholder="name@example.com" onChange={this.handleInputChangeEmail}/>
+                <input className="form-control" type="email" placeholder="name@example.com" value={this.props.currentUser.email} onChange={this.handleInputChangeEmail}/>
                 <span id="helpBlock2" className={this.isValidEmail() ? 'hide' : 'show help-block'}>Email should be in this format: name@example.com</span>
               </div>
             </div>
             <div className="form-group row">
               <label  className="col-sm-2 col-form-label">City:</label>
               <div className="col-sm-10">
-                <input className="form-control"  placeholder="City" onChange={this.handleInputChangeCity}/>
+                <input className="form-control"  placeholder="City" value={this.props.currentUser.address.city} onChange={this.handleInputChangeCity}/>
               </div>
             </div>
             <div className="form-group row">
               <label  className="col-sm-2 col-form-label">Phone:</label>
               <div className="col-sm-10">
-                <input className="form-control"  placeholder="Phone" onChange={this.handleInputChangePhone}/>
+                <input className="form-control"  placeholder="Phone" value={this.props.currentUser.phone} onChange={this.handleInputChangePhone}/>
                 <span id="helpBlock2" className={this.isValidPhone() ? 'hide' : 'show help-block'}>Phone number should be only numbers of minimum 8</span>
               </div>
             </div>
             <div className="form-group row">
               <label  className="col-sm-2 col-form-label">Company name:</label>
               <div className="col-sm-10">
-                <input className="form-control"  placeholder="Company name" onChange={this.handleInputChangeCo}/>
+                <input className="form-control"  placeholder="Company name" value={this.props.currentUser.company.name} onChange={this.handleInputChangeCo}/>
               </div>
             </div>
             <div className="actions">
               <button className="btn btn-primary" onClick={this.handleSubmit} disabled={isEnabled}>Save user </button>
-              <a className="btn btn-primary" href="/users" role="button">Cancel</a>
+              <button className="btn btn-primary" onClick={this.handleCancel} role="button">Cancel</button>
             </div>
           </form>
 
@@ -149,5 +179,5 @@ class UserForm extends Component {
 
 export default withRouter(connect(
   (state) => ({currentUser: state.user.currentUser}),
-  {saveUser,updateCurrentName, updateCurrentUserName, updateCurrentEmail, updateCurrentCity, updateCurrentPhone, updateCurrentCo}
+  {saveUser,updateCurrentName, updateCurrentUserName, updateCurrentEmail, updateCurrentCity, updateCurrentPhone, updateCurrentCo, fetchUserById, updateUserById, emptyCurrentUser}
 )(UserForm))

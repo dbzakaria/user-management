@@ -2,7 +2,7 @@ const baseUrl = process.env.REACT_APP_BASE_URL
 
 export const getUsers = () => {
     return fetch(baseUrl)
-        .then(res => res.json())
+    .then(res => res.json())
 }
 
 export const createUser = (user) => {
@@ -14,7 +14,7 @@ export const createUser = (user) => {
         },
         body: JSON.stringify(user)
     })
-        .then(res => res.json())
+    .then(res => res.json())
 }
 
 export const sortUsers = (col,type) => {
@@ -34,5 +34,29 @@ export const deleteUserById = (id) => {
             'Content-Type': 'application/json'
         },
     })
-        .then(res => res.json())
+    .then(res => res.json())
+}
+
+export const updateUser = (user) => {
+    console.log(baseUrl + '/' + user.id);
+    return fetch(baseUrl + '/' + user.id, {
+        method: 'PUT',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(user)
+    })
+    .then(res => res.json())
+}
+
+export const getUserById = (id) => {
+    return fetch(baseUrl + '/' + id ,{
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+    })
+    .then(res => res.json())
 }

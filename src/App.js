@@ -30,6 +30,7 @@ class App extends Component {
                   <Route exact path="/" component={MainPage} />
                   <Route exact path="/login" component={LoginForm} />
                   <PrivateRoute path="/createUser" user={loggedInUser} component={UserForm} />
+                  <PrivateRoute path="/editUser/:id" user={loggedInUser} component={UserForm} />
                   <PrivateRoute path="/users" user={loggedInUser} component={UsersList} />
                 </div>
             </Router>
