@@ -54,7 +54,10 @@ class UserForm extends Component {
   }
 
   isValidUserName = () => {
-    return this.props.currentUser.username.length > 0 ? true : false;
+    if ((this.props.currentUser.username.length > 7) && (/^[a-z0-9]+$/i.test(this.props.currentUser.username))) {
+      return true;
+    }
+    return false;
   }
 
   isValidEmail = () => {
@@ -70,7 +73,7 @@ class UserForm extends Component {
   }
 
   isValidPhone = () => {
-    return this.props.currentUser.phone.length > 0 ? true : false;
+    return ((this.props.currentUser.phone.length > 7) && (!isNaN(this.props.currentUser.phone))) ? true : false;
   }
 
   isValidCompanyName = () => {
@@ -104,13 +107,14 @@ class UserForm extends Component {
               <label  className="col-sm-2 col-form-label">User name:</label>
               <div className="col-sm-10">
                 <input  className="form-control" placeholder="User Name" onChange={this.handleInputChangeUserName}/>
+                <span id="helpBlock2" className={this.isValidUserName() ? 'hide' : 'show help-block'}>User name shouldn't have any special characters and of minimum 8</span>
               </div>
             </div>
             <div className="form-group row">
               <label  className="col-sm-2 col-form-label">Email:</label>
               <div className="col-sm-10">
                 <input className="form-control" type="email" placeholder="name@example.com" onChange={this.handleInputChangeEmail}/>
-                <span id="helpBlock2" className={this.isValidEmail() ? 'hide' : 'show help-block'}>Email is here.</span>
+                <span id="helpBlock2" className={this.isValidEmail() ? 'hide' : 'show help-block'}>Email should be in this format: name@example.com</span>
               </div>
             </div>
             <div className="form-group row">
@@ -123,6 +127,7 @@ class UserForm extends Component {
               <label  className="col-sm-2 col-form-label">Phone:</label>
               <div className="col-sm-10">
                 <input className="form-control"  placeholder="Phone" onChange={this.handleInputChangePhone}/>
+                <span id="helpBlock2" className={this.isValidPhone() ? 'hide' : 'show help-block'}>Phone number should be only numbers of minimum 8</span>
               </div>
             </div>
             <div className="form-group row">

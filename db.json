@@ -307,6 +307,20 @@
       "company": {
         "name": "09-03-1991"
       }
+    },
+    {
+      "id": 16,
+      "name": "Mina",
+      "username": "diana",
+      "email": "test@test.com",
+      "city": "",
+      "address": {
+        "city": "Haarlem"
+      },
+      "phone": "+31651111111",
+      "company": {
+        "name": "company name"
+      }
     }
   ]
 }
