@@ -1,0 +1,22 @@
+.login-form {
+    width: 300px;
+    margin: 0 auto;
+    padding: 10px;
+    border: 1px solid #000;
+}
+
+.login-form h4 .fas {
+    margin: 0 5px;
+}
+
+.btn {
+    background-color: #3a6f74;
+    color: #fff;
+    border: 1px solid #293e40;
+}
+
+.btn:hover {
+    background-color: #81b5a1;
+    color: #fff;
+    border: 1px solid #81b5a1;
+}
