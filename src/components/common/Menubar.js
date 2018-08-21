@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { signOut } from '../../reducer/login'
 import { withRouter } from 'react-router-dom'
 
-const LoggedInMenu = ({loggedInUser: loggedInUser, handleSignout: handleSignout}) => (
+const LoggedInMenu = ({ loggedInUser, handleSignout}) => (
     <div className="collapse navbar-collapse" id="servicenow-collapse-nav-bar">    
         <ul className="nav navbar-nav">
             <li><a href="/#"><i className="fas fa-database"></i> Products</a></li>

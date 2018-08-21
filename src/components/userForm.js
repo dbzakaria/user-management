@@ -168,7 +168,7 @@ class UserForm extends Component {
             </div>
             <div className="actions">
               <button className="btn btn-primary" onClick={this.handleSubmit} disabled={isEnabled}>Save user </button>
-              <button className="btn btn-primary" onClick={this.handleCancel} role="button">Cancel</button>
+              <button className="btn btn-primary" onClick={this.handleCancel}>Cancel</button>
             </div>
           </form>
 

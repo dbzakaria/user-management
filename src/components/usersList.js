@@ -35,7 +35,7 @@ class UsersList extends Component {
   }
 
   headerSortClassName = (sort,col) => {
-    if (sort.col == col) {
+    if (sort.col === col) {
       let className = sort.type === "asc" ? "fas fa-sort-up" : "fas fa-sort-down";
       return className;
     }
@@ -80,7 +80,7 @@ class UsersList extends Component {
                 <div className="table-cell">{user.company.name}</div>
                 <div className="table-cell text-center">
                   <button onClick={(e) => this.handleDelete(e, user.id)} className="btn btn-default far fa-trash-alt"></button>
-                  <a href={'/editUser/' + user.id} className="btn btn-default fas fa-edit" role="button"></a>
+                  <a href={'/editUser/' + user.id} className="btn btn-default fas fa-edit" role="button"> </a>
                 </div>
               </div>
             })}
