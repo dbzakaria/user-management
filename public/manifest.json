@@ -1,6 +1,6 @@
 {
-  "short_name": "user-management",
-  "name": "User Management",
+  "short_name": "servicenow-dashboard",
+  "name": "serviceNOW Dashboard",
   "icons": [
     {
       "src": "favicon.ico",
