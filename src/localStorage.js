@@ -19,3 +19,11 @@ export const saveState = (state) => {
         // ignore 
     }
 };
+
+export const emptyState = () => {
+    try {
+        localStorage.clear();
+    } catch (err) {
+        // ignore 
+    }
+};

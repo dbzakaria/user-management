@@ -1,7 +1,11 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import { withRouter, Redirect } from 'react-router-dom'
+import { emptyState } from '../localStorage'
 class MainPage extends Component {
+    componentDidMount() {
+        emptyState();
+    }
     render() {
         const loggedInUser = this.props.user;
         return (

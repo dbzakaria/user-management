@@ -1,5 +1,5 @@
 import {createStore, applyMiddleware, combineReducers} from 'redux'
-import {composeWithDevTools} from 'redux-devtools-extension'
+import {composeWithDevTools} from 'redux-devtools-extension/logOnlyInProduction'
 import thunk from 'redux-thunk'
 import userReducer from './reducer/user'
 import loginReducer from './reducer/login'

@@ -1,0 +1,6 @@
+{
+    "name": "servicenow-dashboard",
+    "env": {
+        "NODE_ENV": "production"
+    }
+}

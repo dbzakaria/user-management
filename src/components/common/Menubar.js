@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { signOut } from '../../reducer/login'
 import { withRouter } from 'react-router-dom'
+import { emptyState } from '../../localStorage'
 
 const LoggedInMenu = ({ loggedInUser, handleSignout}) => (
     <div className="collapse navbar-collapse" id="servicenow-collapse-nav-bar">    
@@ -27,6 +28,7 @@ class Menubar extends Component {
     handleSignuout = (e) => {
         e.preventDefault();
         this.props.signOut();
+        emptyState();
         this.props.history.push("/");
     }
 

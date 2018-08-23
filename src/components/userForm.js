@@ -120,7 +120,6 @@ class UserForm extends Component {
 
   render() {
     const isEnabled = this.canSubmit();
-    console.log(this.props.currentUser)
 
     return (
       <div className="wrapper">

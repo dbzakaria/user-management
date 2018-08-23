@@ -38,7 +38,6 @@ export const deleteUserById = (id) => {
 }
 
 export const updateUser = (user) => {
-    console.log(baseUrl + '/' + user.id);
     return fetch(baseUrl + '/' + user.id, {
         method: 'PUT',
         headers: {

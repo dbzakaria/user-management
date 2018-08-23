@@ -2,9 +2,14 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {signIn, updateUsername} from '../reducer/login'
 import { withRouter } from 'react-router-dom'
+import { emptyState } from '../localStorage'
 import './loginForm.css'
 
 class LoginForm extends Component {
+
+    componentDidMount() {
+        emptyState();
+    }
 
     handleInputUsername = (evt) => {
         evt.preventDefault()
